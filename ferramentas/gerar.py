@@ -68,7 +68,6 @@ def rodape(r):
         <h2>Fale comigo</h2>
         <ul>
           <li>WhatsApp: <a href="https://wa.me/{WHATS}">(51) 98920-1232</a></li>
-          <li>E-mail: <a href="mailto:camilaraposaarte@gmail.com">camilaraposaarte@gmail.com</a></li>
           <li>Aulas presenciais: Koralle, Av. José Bonifácio, 95, Farroupilha, Porto Alegre</li>
         </ul>
       </div>
@@ -177,9 +176,12 @@ OFICINAS = [
             "Controle da água e da cor",
             "Um gatinho do primeiro traço até a última pincelada",
         ],
-        recebe=[],
+        recebe=[
+            "Coffee break (me avise se tiver alguma alergia)",
+            "Kit pra continuar praticando em casa",
+        ],
         kit=[],
-        idade="",
+        idade="A partir de 8 anos",
         material="Incluso.",
     ),
     dict(
@@ -408,7 +410,7 @@ def pagina_oficina(o):
         <p class="caminho"><a href="../">Oficinas</a></p>
         <h1>{escape(o["nome"])}</h1>
         <p class="pagina-frase">{escape(o["frase"])}</p>
-        <a class="botao botao--rosa" href="{pedido}">Quero participar</a>
+        <a class="botao botao--whats" href="{pedido}">Quero participar</a>
       </div>
     </section>
 
@@ -434,7 +436,7 @@ def pagina_oficina(o):
       <div class="miolo">
         <h2>Próxima turma</h2>
         <p>As datas novas saem no Instagram e no WhatsApp. Quer saber quando abrir? Me chama.</p>
-        <a class="botao botao--petroleo" href="{pedido}">Quero saber da próxima turma</a>
+        <a class="botao botao--whats" href="{pedido}">Quero saber da próxima turma</a>
       </div>
     </section>
 
@@ -489,6 +491,9 @@ def main():
         p.mkdir(exist_ok=True)
         (p / "index.html").write_text(pagina_oficina(o), encoding="utf-8")
     print(f"{len(OFICINAS)} oficinas geradas.")
+    from paginas import gerar_paginas
+    n = gerar_paginas(RAIZ, topo, rodape, whats)
+    print(f"{n} páginas fixas geradas.")
 
 
 if __name__ == "__main__":

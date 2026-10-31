@@ -31,6 +31,8 @@
   --rosa-claro: #FCE6F0;
   --papel: #FFFFFF;
   --tinta: #13283A;
+  --whats: #25D366;        /* verde padrão do WhatsApp: as pessoas reconhecem */
+  --whats-escuro: #1DA851;
 
   /* Fontes: troca aqui e muda o site inteiro */
   --fonte-titulo: "Caprasimo", "Cooper Black", Georgia, serif;
@@ -215,6 +217,8 @@ a:hover { color: var(--petroleo-fundo); }
 .botao--rosa:hover { background: var(--papel); color: var(--tinta); }
 .botao--contorno { border-color: var(--papel); color: var(--papel); }
 .botao--contorno:hover { background: var(--papel); color: var(--petroleo); }
+.botao--whats { background: var(--whats); color: var(--tinta); }
+.botao--whats:hover { background: var(--whats-escuro); color: var(--tinta); }
 .botao--petroleo { background: var(--petroleo); color: var(--papel); }
 .botao--petroleo:hover { background: var(--petroleo-fundo); color: var(--papel); }
 
@@ -348,7 +352,7 @@ a:hover { color: var(--petroleo-fundo); }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--rosa);
+  background: var(--whats);
   color: var(--tinta);
   font-weight: 700;
   font-size: 1rem;
@@ -358,7 +362,7 @@ a:hover { color: var(--petroleo-fundo); }
   box-shadow: 0 4px 0 var(--petroleo-fundo);
 }
 .whats-flutuante svg { width: 1.4rem; height: 1.4rem; }
-.whats-flutuante:hover { background: var(--papel); color: var(--tinta); }
+.whats-flutuante:hover { background: var(--whats-escuro); color: var(--tinta); }
 
 
 /* Faixa da psicopedagogia */
@@ -487,3 +491,22 @@ a:hover { color: var(--petroleo-fundo); }
 .outras a:hover { background: var(--petroleo); color: var(--papel); }
 .secao--rosa .cartoes .foto { background: var(--papel); }
 .cartoes .foto { background: var(--rosa-claro); }
+
+/* Aulas */
+.duas-aulas { display: grid; gap: 3.5rem; }
+@media (min-width: 56rem) { .duas-aulas { grid-template-columns: 1fr 1fr; gap: 5rem; } }
+.aula h2 { color: var(--petroleo); }
+.aula .fatos { margin: 1.5rem 0 2rem; }
+.temas { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem 3rem; max-width: 60rem; }
+@media (min-width: 48rem) { .temas { grid-template-columns: 1fr 1fr; } }
+.temas strong { font-family: var(--fonte-titulo); font-weight: 400; color: var(--petroleo); font-size: 1.2rem; display: block; }
+
+/* Portfólio */
+.galeria { list-style: none; margin: 0 0 2.5rem; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+@media (min-width: 48rem) { .galeria { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+
+/* Contato */
+.assuntos { list-style: none; margin: 1.5rem 0 2.5rem; padding: 0; display: grid; gap: 0.9rem; max-width: 26rem; }
+.assuntos .botao { display: block; text-align: left; }
+
+.nota { font-size: 1rem; margin-top: 1.5rem; }
