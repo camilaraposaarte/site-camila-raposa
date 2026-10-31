@@ -51,3 +51,4 @@
 
 ## Diário do site (acrescente uma linha no fim de cada sessão)
 - 31/10/2026: repositório criado. Home, Oficinas (10) e as 7 páginas fixas prontas, com lugares de foto. Ainda não está no ar.
+- 31/10/2026: conferidos os links (todos relativos, funcionam no GitHub Pages). Prints da Home em 390px e 1366px enviados, sem erro de carregamento. GitHub Pages ainda desligado: a sessão não tem permissão de mudar Settings, a Camila liga na mão. Endereço previsto: https://camilaraposaarte.github.io/site-camila-raposa/
