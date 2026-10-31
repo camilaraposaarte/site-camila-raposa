@@ -47,8 +47,9 @@
 2. Depoimentos de alunos (ela começou a pedir em 01/11).
 3. Texto da página de Psicopedagogia.
 4. Quando as fotos chegarem: no celular, a arte vem ANTES do texto na abertura da Home.
-5. Ligar o GitHub Pages (Settings > Pages > Deploy from branch > main). Pedir permissão a ela antes.
+5. ~~Ligar o GitHub Pages~~ Feito em 31/10/2026. Site no ar em https://camilaraposaarte.github.io/site-camila-raposa/ (atualiza sozinho a cada push no `main`).
 
 ## Diário do site (acrescente uma linha no fim de cada sessão)
 - 31/10/2026: repositório criado. Home, Oficinas (10) e as 7 páginas fixas prontas, com lugares de foto. Ainda não está no ar.
 - 31/10/2026: conferidos os links (todos relativos, funcionam no GitHub Pages). Prints da Home em 390px e 1366px enviados, sem erro de carregamento. GitHub Pages ainda desligado: a sessão não tem permissão de mudar Settings, a Camila liga na mão. Endereço previsto: https://camilaraposaarte.github.io/site-camila-raposa/
+- 31/10/2026: Camila ligou o GitHub Pages (main, /root). Primeiro deploy deu certo. A rede da sessão na nuvem não abre github.io: pra conferir o site no ar, ver o deploy em Actions ou pedir print a ela.
