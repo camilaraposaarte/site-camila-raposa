@@ -53,3 +53,4 @@
 - 31/10/2026: repositório criado. Home, Oficinas (10) e as 7 páginas fixas prontas, com lugares de foto. Ainda não está no ar.
 - 31/10/2026: conferidos os links (todos relativos, funcionam no GitHub Pages). Prints da Home em 390px e 1366px enviados, sem erro de carregamento. GitHub Pages ainda desligado: a sessão não tem permissão de mudar Settings, a Camila liga na mão. Endereço previsto: https://camilaraposaarte.github.io/site-camila-raposa/
 - 31/10/2026: Camila ligou o GitHub Pages (main, /root). Primeiro deploy deu certo. A rede da sessão na nuvem não abre github.io: pra conferir o site no ar, ver o deploy em Actions ou pedir print a ela.
+- 31/10/2026: Camila abriu o site no ar no computador. Fontes, cores e menu carregaram certo.
