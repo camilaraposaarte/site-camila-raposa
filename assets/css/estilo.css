@@ -240,9 +240,34 @@ a:hover { color: var(--petroleo-fundo); }
   outline-offset: -10px;
 }
 .foto--larga { aspect-ratio: 3 / 2; }
-.abertura .foto {
+.abertura .foto,
+.abertura .foto-img {
   box-shadow: 10px 12px 0 var(--petroleo-fundo);
 }
+
+/* ---------- Imagem de verdade (quando a foto chega) ---------- */
+
+.foto-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;       /* preenche o espaço; corta as bordas, não o meio */
+  border-radius: 6px;
+  background: var(--rosa-claro);
+}
+.foto-img.foto--livre { aspect-ratio: auto; object-fit: contain; }  /* arte inteira, sem corte */
+.metade .foto-img,
+.cartoes .foto-img { margin-bottom: 0.75rem; }
+.metade .foto-img { margin-bottom: 1.5rem; }
+
+/* No celular, a arte vem antes do texto na abertura da Home.
+   Só vale pra imagem de verdade: o quadro rosa continua embaixo. */
+@media (max-width: 55.99rem) {
+  .abertura .foto-img { order: -1; }
+}
+
+.marca { display: inline-flex; align-items: center; gap: 0.6rem; }
+.marca-logo { width: 3rem; height: 3rem; object-fit: contain; }
 
 /* ---------- Seções ---------- */
 
@@ -363,6 +388,9 @@ a:hover { color: var(--petroleo-fundo); }
 }
 .whats-flutuante svg { width: 1.4rem; height: 1.4rem; }
 .whats-flutuante:hover { background: var(--whats-escuro); color: var(--tinta); }
+/* ele mora dentro do rodapé: não herda o texto branco do rodapé */
+.rodape .whats-flutuante,
+.rodape .whats-flutuante:hover { color: var(--tinta); }
 
 
 /* Faixa da psicopedagogia */

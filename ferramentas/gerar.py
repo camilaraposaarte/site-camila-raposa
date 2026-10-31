@@ -7,20 +7,66 @@ Pra adicionar ou mudar uma oficina:
 3. Salve no GitHub.
 
 Topo e rodapé ficam aqui também. Se mudar o menu, mude aqui E no index.html da Home.
+
+Também faz, a cada rodada:
+- prepara as fotos novas de fotos-originais/ (ver imagens.py);
+- preenche os trechos marcados da Home (<!-- gerado:... -->);
+- a página de erro (404.html) e o mapa do site pro Google (sitemap.xml).
 """
+import re
 from pathlib import Path
 from html import escape
 from urllib.parse import quote
 
+from imagens import foto, existe, preparar_fotos, registrar_oficinas
+
 RAIZ = Path(__file__).resolve().parent.parent
 WHATS = "5551989201232"
+
+# Endereço do site no ar. Se um dia tiver domínio próprio, troque só aqui
+# (e BASE vira "/").
+SITE = "https://camilaraposaarte.github.io/site-camila-raposa/"
+BASE = "/site-camila-raposa/"
 
 
 def whats(texto):
     return f"https://wa.me/{WHATS}?text={quote(texto)}"
 
 
-def topo(r, titulo, descricao, atual=""):
+def cabeca_meta(r, titulo_completo, descricao, caminho):
+    """Título, descrição, prévia do WhatsApp/redes e ícone da aba."""
+    url = SITE + caminho
+    imagem = ""
+    if existe("compartilhar"):
+        imagem = f"""
+  <meta property="og:image" content="{SITE}assets/img/compartilhar.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">"""
+    return f"""<title>{escape(titulo_completo)}</title>
+  <meta name="description" content="{escape(descricao)}">
+  <link rel="canonical" href="{url}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Camila Raposa">
+  <meta property="og:title" content="{escape(titulo_completo)}">
+  <meta property="og:description" content="{escape(descricao)}">
+  <meta property="og:url" content="{url}">{imagem}
+  <meta name="twitter:card" content="{'summary_large_image' if imagem else 'summary'}">
+  <link rel="icon" href="{r}assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#1B5B7E">"""
+
+
+def marca(r):
+    """Nome no topo. Quando o logo chegar, ele aparece antes do nome."""
+    logo = ""
+    if existe("logo"):
+        logo = f'<img class="marca-logo" src="{r}assets/img/logo-800.webp" alt="" width="48" height="48">'
+    return f'<a class="marca" href="{r or "./"}">{logo}Camila Raposa{"" if logo else " 🦊"}</a>'
+
+
+def topo(r, titulo, descricao, atual="", caminho=None):
+    if caminho is None:
+        caminho = f"{atual}/" if atual else ""
     def item(href, nome, extra=""):
         cur = ' aria-current="page"' if atual == href else ""
         return f'<li><a{extra} href="{r}{href}/"{cur}>{nome}</a></li>'
@@ -30,8 +76,7 @@ def topo(r, titulo, descricao, atual=""):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{escape(titulo)} · Camila Raposa</title>
-  <meta name="description" content="{escape(descricao)}">
+  {cabeca_meta(r, f"{titulo} · Camila Raposa", descricao, caminho)}
   <link rel="preload" href="{r}assets/fonts/caprasimo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{r}assets/fonts/comfortaa-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{r}assets/css/estilo.css">
@@ -41,7 +86,7 @@ def topo(r, titulo, descricao, atual=""):
 
   <header class="topo">
     <div class="miolo">
-      <a class="marca" href="{r or './'}">Camila Raposa 🦊</a>
+      {marca(r)}
       <button class="botao-menu" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
       <nav class="menu" id="menu" aria-label="Menu principal">
         <ul>
@@ -92,12 +137,14 @@ def rodape(r):
       </div>
       <p class="final">Arte é para todos. Prof. Camila Raposa 🦊</p>
     </div>
+
+    <!-- botão fixo no canto; fica dentro do rodapé pra leitor de tela achar -->
+    <a class="whats-flutuante" href="https://wa.me/{WHATS}" aria-label="Chamar a Camila no WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span>WhatsApp</span>
+    </a>
   </footer>
 
-  <a class="whats-flutuante" href="https://wa.me/{WHATS}" aria-label="Chamar a Camila no WhatsApp">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-    <span>WhatsApp</span>
-  </a>
 
   <script src="{r}assets/js/menu.js"></script>
 </body>
@@ -361,7 +408,7 @@ def cartoes(r):
     for o in OFICINAS:
         linhas.append(
             f'          <li><a href="{r}oficinas/{o["slug"]}/">'
-            f'<span class="foto foto--quadrada">Foto da oficina</span>'
+            + foto(f"oficina-{o['slug']}", r, "Foto da oficina", forma="quadrada", tag="span") +
             f'<span class="cartao-nome">{escape(o["nome"])}</span>'
             f'<span class="cartao-desc">{escape(o["frase"])}</span></a></li>'
         )
@@ -427,7 +474,7 @@ def pagina_oficina(o):
           </dl>
         </div>
         <div>
-          <div class="foto" role="img" aria-label="Lugar da foto da oficina">Foto da oficina</div>{kit}
+          {foto(f"oficina-{o['slug']}", r, "Foto da oficina")}{kit}
         </div>
       </div>
     </section>
@@ -450,7 +497,7 @@ def pagina_oficina(o):
     </section>
 """
     descricao_meta = f"Oficina {o['nome']} com a Camila Raposa, em Porto Alegre. {o['frase']}"
-    return topo(r, o["nome"], descricao_meta, "oficinas") + corpo + rodape(r)
+    return topo(r, o["nome"], descricao_meta, "oficinas", f"oficinas/{o['slug']}/") + corpo + rodape(r)
 
 
 def pagina_indice_oficinas():
@@ -482,7 +529,79 @@ def pagina_indice_oficinas():
     return topo(r, "Oficinas", "Oficinas de aquarela, lettering, marcadores, nanquim e mais com a Camila Raposa, em Porto Alegre.", "oficinas") + corpo + rodape(r)
 
 
+def pagina_404():
+    """Página de endereço errado. O GitHub mostra ela em qualquer pasta,
+    então os links usam o caminho completo (BASE) em vez de ../"""
+    r = BASE
+    corpo = f"""
+    <section class="pagina-topo">
+      <div class="miolo">
+        <h1>Essa página não existe</h1>
+        <p class="pagina-frase">Pode ser um endereço digitado errado, ou uma página que mudou de lugar.</p>
+        <div class="acoes">
+          <a class="botao botao--rosa" href="{r}">Ir pro começo do site</a>
+          <a class="botao botao--contorno" href="{r}oficinas/">Ver as oficinas</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao">
+      <div class="miolo">
+        <h2>Procurando alguma coisa?</h2>
+        <p>Me chama no WhatsApp que eu te ajudo a achar.</p>
+        <a class="botao botao--whats" href="{whats("Oi, Camila! Tentei abrir uma página do teu site e não achei.")}">Chamar no WhatsApp</a>
+      </div>
+    </section>
+"""
+    html = topo(r, "Página não encontrada", "Essa página não existe no site da Camila Raposa.", caminho="404.html")
+    html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <meta name="robots" content="noindex">')
+    return html + corpo + rodape(r)
+
+
+def sitemap():
+    """Lista de todas as páginas, pro Google achar o site inteiro."""
+    paginas = sorted(
+        p.parent.relative_to(RAIZ).as_posix()
+        for p in RAIZ.glob("**/index.html")
+        if not any(parte.startswith(".") or parte in ("prints", "fotos-originais", "ferramentas") for parte in p.parts)
+    )
+    urls = "\n".join(
+        f"  <url><loc>{SITE}{'' if c == '.' else c + '/'}</loc></url>" for c in paginas
+    )
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{urls}
+</urlset>
+"""
+
+
+def preencher_home():
+    """A Home é feita à mão, mas os trechos entre
+    <!-- gerado:NOME --> e <!-- /gerado --> são preenchidos aqui."""
+    arquivo = RAIZ / "index.html"
+    html = arquivo.read_text(encoding="utf-8")
+    trechos = {
+        "cabeca": cabeca_meta("", "Camila Raposa · Arte é para todos",
+                              "Camila Raposa, artista visual e professora de arte em Porto Alegre. Aulas de aquarela, desenho, ilustração e HQ, oficinas e ilustrações sob encomenda.", ""),
+        "marca": marca(""),
+        "foto-abertura": foto("home-abertura", "", "Foto: Camila pintando", lazy=False),
+        "foto-aula": foto("home-aula", "", "Foto: aula na Koralle"),
+        "foto-ilustracao": foto("home-ilustracao", "", "Foto: uma ilustração tua"),
+        "cartoes": "\n" + cartoes("") + "\n          ",
+    }
+    for nome, conteudo in trechos.items():
+        padrao = re.compile(rf"(<!-- gerado:{nome} -->).*?(<!-- /gerado -->)", re.S)
+        if not padrao.search(html):
+            raise SystemExit(f"Marcador gerado:{nome} sumiu do index.html da Home.")
+        html = padrao.sub(lambda m: m.group(1) + conteudo + m.group(2), html)
+    arquivo.write_text(html, encoding="utf-8")
+
+
 def main():
+    registrar_oficinas(OFICINAS)
+    novas = preparar_fotos()
+    if novas:
+        print("Fotos preparadas:", ", ".join(novas))
     pasta = RAIZ / "oficinas"
     pasta.mkdir(exist_ok=True)
     (pasta / "index.html").write_text(pagina_indice_oficinas(), encoding="utf-8")
@@ -494,6 +613,11 @@ def main():
     from paginas import gerar_paginas
     n = gerar_paginas(RAIZ, topo, rodape, whats)
     print(f"{n} páginas fixas geradas.")
+    preencher_home()
+    print("Home: trechos marcados atualizados.")
+    (RAIZ / "404.html").write_text(pagina_404(), encoding="utf-8")
+    (RAIZ / "sitemap.xml").write_text(sitemap(), encoding="utf-8")
+    print("404.html e sitemap.xml gerados.")
 
 
 if __name__ == "__main__":

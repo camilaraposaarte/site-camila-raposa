@@ -11,8 +11,10 @@ def gerar_paginas(raiz, topo, rodape, whats):
     def botao_whats(texto_botao, mensagem, extra=""):
         return f'<a class="botao botao--whats{extra}" href="{whats(mensagem)}">{texto_botao}</a>'
 
-    def foto(rotulo, classe=""):
-        return f'<div class="foto{classe}" role="img" aria-label="Lugar da foto: {rotulo}">Foto: {rotulo}</div>'
+    from imagens import foto as _foto, existe
+
+    def foto(lugar, rotulo):
+        return _foto(lugar, r, f"Foto: {rotulo}")
 
     def cabeca(titulo, frase):
         return f"""
@@ -104,7 +106,7 @@ def gerar_paginas(raiz, topo, rodape, whats):
           <p>Moro em Porto Alegre.</p>
           <a class="botao botao--petroleo" href="{r}portfolio/">Ver o portfólio</a>
         </div>
-        <div>{foto("Camila desenhando")}</div>
+        <div>{foto("sobre-artista", "Camila desenhando")}</div>
       </div>
     </section>
 
@@ -119,7 +121,7 @@ def gerar_paginas(raiz, topo, rodape, whats):
           <p>Hoje curso pós-graduação em Psicopedagogia, pra entender cada vez melhor como a gente aprende.</p>
           <a class="botao botao--petroleo" href="{r}aulas/">Conhecer as aulas</a>
         </div>
-        <div>{foto("Camila dando aula")}</div>
+        <div>{foto("sobre-professora", "Camila dando aula")}</div>
       </div>
     </section>
 """,
@@ -142,8 +144,9 @@ def gerar_paginas(raiz, topo, rodape, whats):
     )
 
     # ---------------- PORTFÓLIO ----------------
+    # Sem a arte: quadro quadrado. Com a arte: aparece inteira, sem cortar.
     artes = "\n".join(
-        f'          <li><div class="foto foto--quadrada" role="img" aria-label="Lugar da arte {i}">Arte {i}</div></li>'
+        f'          <li>{_foto(f"portfolio-{i}", r, f"Arte {i}", forma="livre" if existe(f"portfolio-{i}") else "quadrada")}</li>'
         for i in range(1, 7)
     )
     paginas["portfolio"] = (
@@ -183,7 +186,7 @@ def gerar_paginas(raiz, topo, rodape, whats):
           <p>Funciona em casamento, aniversário, lançamento de produto e ação de marca.</p>
           {botao_whats("Pedir orçamento", "Oi, Camila! Quero um orçamento de aquarela ao vivo pro meu evento.")}
         </div>
-        <div>{foto("aquarela ao vivo", " foto--larga")}</div>
+        <div>{foto("eventos-aquarela-ao-vivo", "aquarela ao vivo")}</div>
       </div>
     </section>
 
@@ -194,7 +197,7 @@ def gerar_paginas(raiz, topo, rodape, whats):
           <p>Qualquer oficina pode virar festa de aniversário, pra criança ou pra adulto. Eu levo o material e conduzo a atividade.</p>
           {botao_whats("Quero uma festa assim", "Oi, Camila! Quero saber da oficina pra festa de aniversário.")}
         </div>
-        <div>{foto("festa com oficina", " foto--larga")}</div>
+        <div>{foto("eventos-festa", "festa com oficina")}</div>
       </div>
     </section>
 
