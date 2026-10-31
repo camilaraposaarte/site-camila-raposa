@@ -408,3 +408,82 @@ a:hover { color: var(--petroleo-fundo); }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ---------- Páginas internas ---------- */
+
+.pagina-topo {
+  background: var(--petroleo);
+  color: var(--papel);
+  padding: clamp(2.5rem, 7vw, 4.5rem) 0;
+}
+.pagina-topo h1 {
+  font-size: clamp(2.6rem, 9vw, 4.5rem);
+  color: var(--rosa);
+  margin-bottom: 0.75rem;
+}
+.pagina-frase { font-size: 1.25rem; margin-bottom: 1.75rem; }
+.caminho { margin: 0 0 0.75rem; font-size: 1rem; }
+.caminho a { color: var(--papel); }
+.caminho a::after { content: " /"; text-decoration: none; display: inline-block; margin-left: 0.25em; }
+
+.colunas {
+  display: grid;
+  gap: 3rem;
+}
+@media (min-width: 56rem) {
+  .colunas { grid-template-columns: 1.3fr 1fr; gap: 5rem; align-items: start; }
+}
+
+.titulo-bloco {
+  font-size: 1.5rem;
+  color: var(--petroleo);
+  margin-top: 2.25rem;
+}
+.lista-marcada {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  max-width: var(--linha);
+}
+.lista-marcada li { margin-bottom: 0.45rem; padding-left: 0.25rem; }
+.lista-marcada li::marker { color: var(--rosa); font-size: 1.2em; }
+
+.fatos {
+  margin: 2.25rem 0 0;
+  border-top: 2px solid var(--petroleo);
+}
+.fatos div {
+  padding: 0.9rem 0;
+  border-bottom: 2px solid var(--petroleo);
+}
+.fatos dt { font-weight: 700; color: var(--petroleo); }
+.fatos dd { margin: 0; }
+
+.caixa {
+  background: var(--rosa-claro);
+  border-radius: 6px;
+  padding: 0.25rem 1.5rem 1rem;
+  margin-top: 2rem;
+}
+.caixa .titulo-bloco { margin-top: 1.25rem; }
+
+.outras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.outras a {
+  display: inline-block;
+  color: var(--tinta);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 2px solid var(--petroleo);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+}
+.outras a:hover { background: var(--petroleo); color: var(--papel); }
+.secao--rosa .cartoes .foto { background: var(--papel); }
+.cartoes .foto { background: var(--rosa-claro); }
