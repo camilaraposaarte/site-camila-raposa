@@ -64,4 +64,4 @@
 - 31/10/2026: Camila ligou o GitHub Pages (main, /root). Primeiro deploy deu certo. A rede da sessão na nuvem não abre github.io: pra conferir o site no ar, ver o deploy em Actions ou pedir print a ela.
 - 31/10/2026: Camila abriu o site no ar no computador. Fontes, cores e menu carregaram certo.
 - 31/10/2026: sem imagens ainda, preparei tudo pra elas: lista em IMAGENS.md, gerador que diminui foto e tira GPS, arte antes do texto no celular. Também: prévia de link (WhatsApp/redes), ícone da aba, página 404, sitemap.xml. Revisão das 19 páginas no celular (links, rolagem pro lado, menu, teclado, acessibilidade): zero problemas depois de corrigir o botão verde, que ficava fora das regiões da página.
-- 01/11/2026: arquivo de verificação do Google Search Console colocado na raiz (`googled1276952493dbf9c.html`).
+- 31/10/2026: arquivo de verificação do Google Search Console colocado na raiz (`googled1276952493dbf9c.html`).
