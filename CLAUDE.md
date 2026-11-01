@@ -56,7 +56,7 @@
 3. Texto da página de Psicopedagogia. Perguntas enviadas a ela em 31/10/2026; montar o texto só com as respostas dela.
 4. ~~No celular, a arte vem antes do texto na abertura da Home.~~ Pronto no CSS (31/10/2026). Passa a valer sozinho quando a foto `home-abertura` chegar.
 5. ~~Ligar o GitHub Pages~~ Feito em 31/10/2026. Site no ar em https://camilaraposaarte.github.io/site-camila-raposa/ (atualiza sozinho a cada push no `main`).
-6. Google Search Console (grátis): ela cria a propriedade com o endereço do site e me passa o código da "tag HTML". Eu coloco na Home.
+6. Google Search Console: verificação pelo arquivo `googled1276952493dbf9c.html` na raiz. **Não apagar esse arquivo**, senão o Google perde a verificação. Depois de verificar: enviar o `sitemap.xml` no Search Console.
 
 ## Diário do site (acrescente uma linha no fim de cada sessão)
 - 31/10/2026: repositório criado. Home, Oficinas (10) e as 7 páginas fixas prontas, com lugares de foto. Ainda não está no ar.
@@ -64,3 +64,4 @@
 - 31/10/2026: Camila ligou o GitHub Pages (main, /root). Primeiro deploy deu certo. A rede da sessão na nuvem não abre github.io: pra conferir o site no ar, ver o deploy em Actions ou pedir print a ela.
 - 31/10/2026: Camila abriu o site no ar no computador. Fontes, cores e menu carregaram certo.
 - 31/10/2026: sem imagens ainda, preparei tudo pra elas: lista em IMAGENS.md, gerador que diminui foto e tira GPS, arte antes do texto no celular. Também: prévia de link (WhatsApp/redes), ícone da aba, página 404, sitemap.xml. Revisão das 19 páginas no celular (links, rolagem pro lado, menu, teclado, acessibilidade): zero problemas depois de corrigir o botão verde, que ficava fora das regiões da página.
+- 01/11/2026: arquivo de verificação do Google Search Console colocado na raiz (`googled1276952493dbf9c.html`).
